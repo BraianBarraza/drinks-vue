@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.router-link-exact-active {
+  @apply text-orange-500;
+}
