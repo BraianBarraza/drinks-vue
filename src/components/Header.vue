@@ -1,10 +1,18 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { useDrinksStore } from '@/stores/drinks.js'
 
 const route = useRoute()
+const store = useDrinksStore()
 
 const homePage = computed(() => route.name === 'home')
+
+const handleSubmit = () =>{
+  console.log('handleSubmit')
+  //TODO: validate form, headless UI
+  store.getRecipes()
+}
 </script>
 
 <template>
@@ -38,6 +46,7 @@ const homePage = computed(() => route.name === 'home')
         v-if="homePage"
         action=""
         class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6"
+        @submit.prevent="handleSubmit"
       >
         <div class="space-y-4">
           <label class="block text-white uppercase font-extrabold text-lg" for="ingredients"
@@ -48,16 +57,21 @@ const homePage = computed(() => route.name === 'home')
             id="ingredients"
             class="bg-white p-3 w-full rounded-lg focus:outline-none"
             placeholder="E.g. Cuba Libre, Vodka, Tequila, etc.."
+            v-model="store.search.name"
           />
         </div>
         <div class="space-y-4">
           <label class="block text-white uppercase font-extrabold text-lg">Category</label>
           <select
-            for="category"
             id="ingredients"
             class="bg-white p-3 w-full rounded-lg focus:outline-none"
+            v-model="store.search.category"
           >
             <option value="">-- Select --</option>
+            <option
+            v-for="category in store.categories" :key="category.strCategory" :value="category.strCategory">
+              {{ category.strCategory }}
+            </option>
           </select>
         </div>
 
