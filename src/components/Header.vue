@@ -26,16 +26,18 @@ const handleSubmit = () =>{
           </RouterLink>
         </div>
 
-        <nav class="flex gap-4">
+        <nav class="text-white flex gap-4">
           <router-link
             :to="{ name: 'home' }"
-            class="text-white font-bold uppercase"
+            class="font-bold uppercase"
+            active-class="text-orange-500"
           >
             Home
           </router-link>
           <router-link
             :to="{ name: 'favorites' }"
-            class="text-white font-bold uppercase"
+            class="font-bold uppercase"
+            active-class="text-orange-500"
           >
             Favorites
           </router-link>
