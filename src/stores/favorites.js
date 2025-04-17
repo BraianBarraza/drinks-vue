@@ -1,9 +1,13 @@
+import { computed, onMounted, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useDrinksStore } from '@/stores/drinks.js'
-import { onMounted, ref, watch } from 'vue'
+import { useModalStore } from '@/stores/modal.js'
+import { useNotificationsStore } from '@/stores/notifications.js'
 
 export const useFavoritesStore = defineStore('favorites', () => {
   const drinks = useDrinksStore()
+  const modal = useModalStore()
+  const notifications = useNotificationsStore()
   const favorites = ref([])
 
   onMounted(() => {
@@ -16,8 +20,8 @@ export const useFavoritesStore = defineStore('favorites', () => {
       syncLocalStorage()
     },
     {
-      deep: true,
-    },
+      deep: true
+    }
   )
 
   function syncLocalStorage() {
@@ -31,11 +35,13 @@ export const useFavoritesStore = defineStore('favorites', () => {
 
   function addFavorite() {
     favorites.value.push(drinks.recipe)
+    notifications.show = true
+    notifications.text = `Added to Favorites`
   }
 
   function deleteFavorite() {
     favorites.value = favorites.value.filter(
-      (favorite) => favorite.idDrink !== drinks.recipe.idDrink,
+      (favorite) => favorite.idDrink !== drinks.recipe.idDrink
     )
   }
 
@@ -45,11 +51,15 @@ export const useFavoritesStore = defineStore('favorites', () => {
     } else {
       addFavorite()
     }
+    modal.modal = false
   }
+
+  const noFavorites = computed(() => favorites.value.length === 0)
 
   return {
     favorites,
+    noFavorites,
     handleClickFavorite,
-    favoriteExists,
+    favoriteExists
   }
 })
