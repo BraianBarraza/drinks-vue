@@ -2,15 +2,24 @@
 import { RouterLink, useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useDrinksStore } from '@/stores/drinks.js'
+import { useNotificationsStore } from '@/stores/notifications.js'
 
 const route = useRoute()
 const store = useDrinksStore()
+const notifications = useNotificationsStore()
 
 const homePage = computed(() => route.name === 'home')
 
 const handleSubmit = () =>{
-  console.log('handleSubmit')
-  //TODO: validate form, headless UI
+  if (Object.values(store.search).includes('')){
+    notifications.$patch({
+      text : 'All fields must been filled',
+      show : true,
+      error : true
+    })
+    return
+  }
+
   store.getRecipes()
 }
 </script>

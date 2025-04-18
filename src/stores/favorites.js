@@ -41,8 +41,10 @@ export const useFavoritesStore = defineStore('favorites', () => {
 
   function deleteFavorite() {
     favorites.value = favorites.value.filter(
-      (favorite) => favorite.idDrink !== drinks.recipe.idDrink
-    )
+      (favorite) => favorite.idDrink !== drinks.recipe.idDrink)
+
+    notifications.show = true
+    notifications.text = `Deleted from favorites`
   }
 
   function handleClickFavorite() {
