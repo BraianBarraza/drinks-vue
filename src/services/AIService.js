@@ -1,9 +1,6 @@
 import { openRouter } from '@/lib/ai.js'
 import { streamText } from 'ai'
 
-
-openRouter()
-
 export default {
   async generateRecipe(prompt){
     const  result = streamText({

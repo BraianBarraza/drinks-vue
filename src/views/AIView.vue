@@ -50,7 +50,7 @@ const handleSubmit = () => {
       </div>
     </form>
 
-    <p v-if="store.loading" class="">Generating ...</p>
+    <p v-if="store.loading">Generating ...</p>
     <div class="py-10 whitespace-pre-wrap">
       {{ store.answer }}
     </div>
