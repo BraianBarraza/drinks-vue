@@ -50,6 +50,13 @@ const handleSubmit = () =>{
           >
             Favorites
           </router-link>
+          <router-link
+            :to="{ name: 'ai' }"
+            class="font-bold uppercase"
+            active-class="text-orange-500"
+          >
+            Generate with AI
+          </router-link>
         </nav>
       </div>
 
